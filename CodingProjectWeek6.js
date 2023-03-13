@@ -31,19 +31,17 @@ class Deck {
 
     makeDeck(){
         this.deckOfCards=[];
-        const faces= [2,3,4,5,6,7,8,9,10,'J','Q','K','A'];
+        const faces= [2,3,4,5,6,7,8,9,10,'JACK','QUEEN','KING','ACE'];
         const values= [2,3,4,5,6,7,8,9,10,11,12,13,14];             //the values array is to make sure the system knows what value face cards, such as king, hold compared to other numbered cards. 
         const suits=['Clubs','Diamonds','Hearts','Spades'];
 
-        //now we create need to make a loop that will create into the array deckOfCards
+        //now we need to make a loop that will create into the array deckOfCards
 
         for (let f=0; f < faces.length; f++){
             for (let s=0; s < suits.length; s++){
-                for (let v=0; v < values.length; v++){
-                this.deckOfCards.push(new Card(faces[f], values[v], suits[s]));
+                this.deckOfCards.push(new Card(faces[f], values[f], suits[s]));
             }
         }
-    }
     }
 //next we want to add a method to shuffle the deck using the Fisher-Yates shuffle algorithm 
      shuffleDeck(){
@@ -60,7 +58,7 @@ class Deck {
 
 }
 
-
+//make an instance of a deck
 const deck= new Deck();
 
 
@@ -73,7 +71,7 @@ const playerTwo= new Player('Luke');
 
 
 
-//next lets start the game with the game class. The game will start with dealing the shuffled deck of cards to each player
+//next lets start the game with the game class. 
 class Game {
     constructor(){
         this.playersInGame=[];
@@ -83,7 +81,7 @@ class Game {
         this.playersInGame.push(playerOne);
         this.playersInGame.push(playerTwo);
         deck.makeDeck();
-        deck.shuffleDeck();
+        deck.shuffleDeck();                    //startGame is every step from start to finish how the game will work
         this.dealHand();
         this.anyRound();
         this.finalScore();
@@ -91,9 +89,11 @@ class Game {
 
     dealHand(){
         let cards= deck.deckOfCards.splice(0,26);
-        playerOne.playerHand.push(cards);
         let cardsTwo= deck.deckOfCards;
-        playerTwo.playerHand.push(deck);
+        for (let c=0; c < cards.length; c++){
+            playerOne.playerHand.push(cards[c]);         //here we create a for loop so the cards push into the hand one at a time
+            playerTwo.playerHand.push(cardsTwo[c]);
+        }
     }
 
 
@@ -127,7 +127,7 @@ class Game {
     }
     }
 
-    
+    //now we have the final score where we can see who wins and the total each player ended with
 
     finalScore(){
         let finalScoreOne= playerOne.playerScore;
