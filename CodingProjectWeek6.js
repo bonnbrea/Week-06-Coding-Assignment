@@ -73,13 +73,12 @@ const playerTwo= new Player('Luke');
 
 //next lets start the game with the game class. 
 class Game {
-    constructor(){
-        this.playersInGame=[];
+    constructor(playerOne, playerTwo){
+        this.playerOne=playerOne;
+        this.playerTwo=playerTwo;
     }
 
     startGame(){
-        this.playersInGame.push(playerOne);
-        this.playersInGame.push(playerTwo);
         deck.makeDeck();
         deck.shuffleDeck();                    //startGame is every step from start to finish how the game will work
         this.dealHand();
@@ -91,8 +90,8 @@ class Game {
         let cards= deck.deckOfCards.splice(0,26);
         let cardsTwo= deck.deckOfCards;
         for (let c=0; c < cards.length; c++){
-            playerOne.playerHand.push(cards[c]);         //here we create a for loop so the cards push into the hand one at a time
-            playerTwo.playerHand.push(cardsTwo[c]);
+            this.playerOne.playerHand.push(cards[c]);         //here we create a for loop so the cards push into the hand one at a time
+            this.playerTwo.playerHand.push(cardsTwo[c]);
         }
     }
 
@@ -149,7 +148,7 @@ class Game {
 
 //start the game here
 
-let newGame= new Game();
+let newGame= new Game(playerOne, playerTwo);
 newGame.startGame();
 
 
